@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/Sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { SocketProvider } from "@/context/SocketContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +27,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex antialiased text-slate-900 bg-slate-50 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] selection:bg-teal-100 selection:text-teal-900">
-        <Sidebar />
-        <main className="flex-1 flex flex-col min-h-screen relative overflow-hidden">
-          {children}
-        </main>
-        <Toaster position="top-center" richColors />
+        <SocketProvider>
+          <Sidebar />
+          <main className="flex-1 flex flex-col min-h-screen relative overflow-hidden">
+            {children}
+          </main>
+          <Toaster position="top-center" richColors />
+        </SocketProvider>
       </body>
     </html>
   );
